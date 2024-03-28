@@ -96,7 +96,74 @@
                 name: "",
                 phone: "",
             },
-        });
+            computed: {
+          filteredLessons() {
+            let filtered = this.lessons;
+            if (this.searchQuery) {
+              filtered = filtered.filter(
+                (lesson) =>
+                  lesson.subject
+                    .toLowerCase()
+                    .includes(this.searchQuery.toLowerCase()) ||
+                  lesson.location
+                    .toLowerCase()
+                    .includes(this.searchQuery.toLowerCase())
+              );
+            }
+            return filtered;
+          },
+
+          validForm() {
+            return (
+              this.name.match(/^[a-zA-Z\s]+$/) && this.phone.match(/^\d+$/)
+            );
+          },
+          cartItemCount() {
+            return this.cart.length;
+          },
+        },
+        methods: {
+          addToCart(lesson) {
+            if (lesson.spaces > 0) {
+              const item = { ...lesson, spaces: 1 };
+              this.cart.push(item);
+              lesson.spaces--;
+            }
+          },
+          toggleCart() {
+            this.showCart = !this.showCart;
+          },
+          removeFromCart(item) {
+            const index = this.cart.indexOf(item);
+            if (index !== -1) {
+              this.cart.splice(index, 1);
+              const lesson = this.lessons.find((l) => l.id === item.id);
+              lesson.spaces++;
+            }
+          },
+          sortLessons() {
+            if (this.sortOption) {
+              this.lessons.sort((a, b) => {
+                const order = this.sortOption === "price" ? 1 : -1;
+                if (a[this.sortOption] < b[this.sortOption]) return -1 * order;
+                if (a[this.sortOption] > b[this.sortOption]) return 1 * order;
+                return 0;
+              });
+            }
+          },
+          checkout() {
+            if (this.validForm) {
+              alert(
+                `Order Submitted Successfully for your purchase ${this.name}`
+              );
+              this.cart = [];
+              this.name = "";
+              this.phone = "";
+              window.location.href = 'appreciation.html';
+            }
+          },
+        },
+      });
     </script>
 </body>
 
