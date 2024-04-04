@@ -8,79 +8,95 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="https://kit.fontawesome.com/yourkit.js"></script>
-
+    <!-- google font api -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="fst-inter">
     <div id="app">
-        <h2 class="mt-4 mb-4">Rufa'i After-School Classes Shopping Cart</h2>
-
-    <!-- Search Functionality -->
-    <!-- Search and Sort -->
-    <div class="row mb-4">
-      <div class="col-md-6">
-        <input type="text" v-model="searchQuery" class="form-control" placeholder="Search for lessons">
-      </div>
-      <!-- Sort Functionality -->
-      <div class="col-md-3">
-        <select v-model="sortOption" class="form-control">
-          <option value="">Sort by</option>
-          <option value="subject">Subject</option>
-          <option value="location">Location</option>
-          <option value="price">Price</option>
-          <option value="spaces">Spaces</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <button @click="sortLessons()" class="btn btn-success btn-block">Sort</button>
-      </div>
-    </div>
-    <!-- Display List of Lessons -->
-    <div class="row">
-      <div class="col-md-4" v-for="lesson in filteredLessons" :key="lesson.id">
-        <div class="card mb-3">
-          <div class="card-body">
-            <h3 class="card-title">{{ lesson.subject }}</h3>
-            <p class="card-text">Location: {{ lesson.location }}</p>
-            <p class="card-text">Price: ${{ lesson.price }}</p>
-            <p class="card-text">Spaces: {{ lesson.spaces }}</p>
-            <i :class="lesson.icon"></i>
-            <button :disabled="lesson.spaces === 0" @click="addToCart(lesson)" class="btn btn-success btn-block">Add to
-              Cart</button>
-          </div>
+        <h2 class="mt-4 mb-4 text-center">VUE JS Coursework 1</h2>
+        <!-- Search Functionality -->
+        <!-- Search and Sort -->
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <!-- the user enters a search term -->
+                    <input type="text" v-model="searchQuery" class="form-control" placeholder="Search for lessons">
+                </div>
+                <!-- Sort Functionality -->
+                <div class="col-md-3">
+                    <select v-model="sortOption" class="form-control">
+                        <option value="">Sort by</option>
+                        <option value="subject">Subject</option>
+                        <option value="location">Location</option>
+                        <option value="price">Price</option>
+                        <option value="spaces">Spaces</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button @click="sortLessons()" class="btn btn-success btn-block">Sort</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Shopping Cart Functionality -->
-    <div class="d-flex justify-content-end">
-      <button :disabled="cart.length === 0" @click="showCart = !showCart" class="btn btn-success">
-        <span class="badge badge-light">Cart {{ cartItemCount }}</span> </button>
-    </div>
-    <div v-if="showCart" class="container mt-4">
-      <h2>Shopping Cart</h2>
-
-      <ul class="list-group">
-        <li class="list-group-item" v-for="item in cart" :key="item.id">
-          {{ item.subject }} - ${{ item.price }}
-          <button @click="removeFromCart(item)" class="btn btn-danger btn-sm float-right">Remove</button>
-          <br>
-        </li>
-      </ul>
-
-      <!-- Checkout Functionality -->
-      <div class="mt-4">
-        <h3>Checkout</h3>
-        <div class="form-group">
-          <input type="text" v-model="name" class="form-control" placeholder="Name" pattern="^[a-zA-Z\s]+$">
+        <!-- Display List of Lessons -->
+        <div class="container">
+            <div class="row">
+                <!-- I used v-for to display the lessons -->
+                <div class="col-md-4" v-for="lesson in filteredLessons" :key="lesson.id">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">{{ lesson.subject }}</h3>
+                                <div><i class="{{lesson.icon}}"></i></div>
+                            </div>
+                            <p class="card-text">Location: {{ lesson.location }}</p>
+                            <p class="card-text">Price: ${{ lesson.price }}</p>
+                            <p class="card-text">Spaces: {{ lesson.spaces }}</p>
+                            <i :class="lesson.icon"></i>
+                            <!-- this button adds a product to the  
+                            cart array and is disabled when the number of spaces is equal to zero -->
+                            <button :disabled="lesson.spaces === 0" @click="addToCart(lesson)"
+                                class="btn btn-success btn-block">Add to
+                                Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <input type="text" v-model="phone" class="form-control" placeholder="Phone" pattern="^\d+$">
+
+        <!-- Shopping Cart Functionality -->
+        <div class="d-flex justify-content-end">
+            <button :disabled="cart.length === 0" @click="showCart = !showCart" class="btn btn-success">
+                <span class="badge badge-light">Cart {{ cartItemCount }}</span> </button>
         </div>
-        <button :disabled="!validForm" @click="checkout" class="btn btn-success"><span class="badge badge-light">{{
-            cartItemCount }}</span>Checkout</button></button>
-      </div>
-    </div>
+        <div v-if="showCart" class="container mt-4">
+            <h2>Shopping Cart</h2>
+            <ul class="list-group">
+                <!-- I used v-for to list the items in the cart array -->
+                <li class="list-group-item" v-for="item in cart" :key="item.id">
+                    {{ item.subject }} - ${{ item.price }}
+                    <!-- this button removes an item from the shopping cart when it is clicked  -->
+                    <button @click="removeFromCart(item)" class="btn btn-danger btn-sm float-right">Remove</button>
+                    <br>
+                </li>
+            </ul>
+
+            <!-- Checkout Functionality -->
+            <div class="mt-4">
+                <h3>Checkout</h3>
+                <div class="form-group">
+                    <input type="text" v-model="name" class="form-control" placeholder="Name" pattern="^[a-zA-Z\s]+$">
+                </div>
+                <div class="form-group">
+                    <input type="text" v-model="phone" class="form-control" placeholder="Phone" pattern="^\d+$">
+                </div>
+                <button :disabled="!validForm" @click="checkout" class="btn btn-success"><span
+                        class="badge badge-light">{{
+                        cartItemCount }}</span>Checkout</button></button>
+            </div>
+        </div>
     </div>
     <script src="lesson.js"></script>
     <script>
@@ -88,82 +104,117 @@
         const app = new Vue({
             el: "#app",
             data: {
+                // assigning the lessons array to the built-in VUE JS data object.
                 lessons: LESSONS,
+                // this is the cart array where any lesson a user adds to cart will be stored.
                 cart: [],
+                // this variable is used to check whether the button should be visible(enabled) or not
                 showCart: false,
+                // this variable is used to know in what order to sort the lessons
                 sortOption: "",
+                // used the v-model to bind the variable so as to get the user input 
                 searchQuery: "",
+                // used the v-model to bind the name and phone variables 
                 name: "",
                 phone: "",
             },
             computed: {
-          filteredLessons() {
-            let filtered = this.lessons;
-            if (this.searchQuery) {
-              filtered = filtered.filter(
-                (lesson) =>
-                  lesson.subject
-                    .toLowerCase()
-                    .includes(this.searchQuery.toLowerCase()) ||
-                  lesson.location
-                    .toLowerCase()
-                    .includes(this.searchQuery.toLowerCase())
-              );
-            }
-            return filtered;
-          },
+                // it takes the input from the search bar and loops through all the courses
+                // if there is a match based on subject or location, the function returns that particular lesson.
+                // this method returns(displays) the lessons in the lesson.js file
+                // it also takes the searchQuery variable binded using v-model to check for courses by name
+                filteredLessons() {
+                    let filtered = this.lessons;
+                    if (this.searchQuery) {
+                        filtered = filtered.filter(
+                            // I made sure that I converted the searchterm to lowercase so as to avoid any discrepancies with what the user types
+                            (lesson) =>
+                                lesson.subject
+                                    .toLowerCase()
+                                    .includes(this.searchQuery.toLowerCase()) ||
+                                // if the subject does not match, then check the price.
+                                lesson.location
+                                    .toLowerCase()
+                                    .includes(this.searchQuery.toLowerCase())
+                        );
+                    }
+                    return filtered;
+                },
 
-          validForm() {
-            return (
-              this.name.match(/^[a-zA-Z\s]+$/) && this.phone.match(/^\d+$/)
-            );
-          },
-          cartItemCount() {
-            return this.cart.length;
-          },
-        },
-        methods: {
-          addToCart(lesson) {
-            if (lesson.spaces > 0) {
-              const item = { ...lesson, spaces: 1 };
-              this.cart.push(item);
-              lesson.spaces--;
-            }
-          },
-          toggleCart() {
-            this.showCart = !this.showCart;
-          },
-          removeFromCart(item) {
-            const index = this.cart.indexOf(item);
-            if (index !== -1) {
-              this.cart.splice(index, 1);
-              const lesson = this.lessons.find((l) => l.id === item.id);
-              lesson.spaces++;
-            }
-          },
-          sortLessons() {
-            if (this.sortOption) {
-              this.lessons.sort((a, b) => {
-                const order = this.sortOption === "price" ? 1 : -1;
-                if (a[this.sortOption] < b[this.sortOption]) return -1 * order;
-                if (a[this.sortOption] > b[this.sortOption]) return 1 * order;
-                return 0;
-              });
-            }
-          },
-          checkout() {
-            if (this.validForm) {
-              alert(
-                `Order Submitted Successfully for your purchase ${this.name}`
-              );
-              this.cart = [];
-              this.name = "";
-              this.phone = "";
-              window.location.href = 'appreciation.html';
-            }
-          },
-        },
-      });
+                // this function uses regular expressions to check if the phonenumber and username entered by the user, are numbers only
+                // and the username is letters only, then it will return true otherwise it would return false. then button for submitting
+                // orders would disabled.
+                validForm() {
+                    return (
+                        // using the regular expression to match the pattern in the username and phonenumber
+                        this.name.match(/^[a-zA-Z\s]+$/) && this.phone.match(/^\d+$/)
+                    );
+                },
+
+                // this function returns the number of items in the cart
+                cartItemCount() {
+                    return this.cart.length;
+                },
+            },
+            methods: {
+                // this function adds an item to the cart array
+                addToCart(lesson) {
+                    if (lesson.spaces > 0) {
+                        const item = { ...lesson, spaces: 1 };
+                        // if the spaces is greater than zero, add the product to cart.
+                        this.cart.push(item);
+                        // then decrease the total number of spaces by 1
+                        lesson.spaces--;
+                    }
+                },
+                // this function would use the showCart variable to check whether our button should be enabled or not.
+                toggleCart() {
+                    this.showCart = !this.showCart;
+                },
+                // this function removes an item from the cart array
+                removeFromCart(item) {
+                    // get the item you want to remove from the cart array
+                    const index = this.cart.indexOf(item);
+                    if (index !== -1) {
+                        // then remove it from the cart array.
+                        this.cart.splice(index, 1);
+                        const lesson = this.lessons.find((l) => l.id === item.id);
+                        // increase the total number of spaces by 1
+                        lesson.spaces++;
+                    }
+                },
+
+                // this method uses the JavaScript sort function to check if one lesson is less than the other, it sorts that first
+                //  and sorts the other after that.
+                sortLessons() {
+                    if (this.sortOption) {
+                        this.lessons.sort((a, b) => {
+                            const order = this.sortOption === "price" ? 1 : -1;
+                            if (a[this.sortOption] < b[this.sortOption]) return -1 * order;
+                            if (a[this.sortOption] > b[this.sortOption]) return 1 * order;
+                            return 0;
+                        });
+                    }
+                },
+                // this function handles the checkout functionality by clearing the cart, empytying the username and phone input fields
+                // and redirect the user to a new location
+                checkout() {
+                    if (this.validForm) {
+                        // display a success message to the user.
+                        alert(
+                            `Order Submitted Successfully for your purchase ${this.name}`
+                        );
+                        // empty the cart
+                        this.cart = [];
+                        // empty all the input fields
+                        this.name = "";
+                        this.phone = "";
+                        // redirect the user
+                        window.location.href = 'index.html';
+                    }
+                },
+            },
+        });
     </script>
 </body>
 

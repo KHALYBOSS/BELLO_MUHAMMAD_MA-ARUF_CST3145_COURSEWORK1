@@ -5,7 +5,7 @@ const LESSONS = [
       location: 'Germany',
       price: 20,
       spaces: 5,
-      icon: 'fas fa-calculator'
+      icon: 'bi bi-calculator'
     },
     {
       id: 2,
@@ -13,7 +13,7 @@ const LESSONS = [
       location: 'United States',
       price: 25,
       spaces: 3,
-      icon: 'fas fa-atom'
+      icon: 'bi bi-pentagon-half'
     },
     {
       id: 3,
@@ -21,7 +21,7 @@ const LESSONS = [
       location: 'France',
       price: 15,
       spaces: 8,
-      icon: 'fas fa-book'
+      icon: 'bi bi-hourglass-top'
     },
     {
       id: 4,
@@ -29,7 +29,7 @@ const LESSONS = [
       location: 'United Kingdom',
       price: 18,
       spaces: 6,
-      icon: 'fas fa-language'
+      icon: 'bi bi-book'
     },
     {
       id: 5,
@@ -37,7 +37,7 @@ const LESSONS = [
       location: 'Canada',
       price: 22,
       spaces: 4,
-      icon: 'fas fa-microscope'
+      icon: 'bi bi-heart-pulse'
     },
     {
       id: 6,
@@ -45,7 +45,7 @@ const LESSONS = [
       location: 'Australia',
       price: 30,
       spaces: 2,
-      icon: 'fas fa-flask'
+      icon: 'bi-arrow-bar-up'
     },
     {
       id: 7,
@@ -53,7 +53,7 @@ const LESSONS = [
       location: 'Japan',
       price: 28,
       spaces: 5,
-      icon: 'fas fa-laptop-code'
+      icon: 'bi bi-pc-display'
     },
     {
       id: 8,
@@ -61,7 +61,7 @@ const LESSONS = [
       location: 'Italy',
       price: 20,
       spaces: 7,
-      icon: 'fas fa-paint-brush'
+      icon: 'bi bi-brush'
     },
     {
       id: 9,
@@ -69,7 +69,7 @@ const LESSONS = [
       location: 'Spain',
       price: 25,
       spaces: 4,
-      icon: 'fas fa-music'
+      icon: 'bi bi-boombox'
     },
     {
       id: 10,
@@ -77,7 +77,7 @@ const LESSONS = [
       location: 'Brazil',
       price: 15,
       spaces: 10,
-      icon: 'fas fa-dumbbell'
+      icon: 'bi bi-alt'
     }
   ];
   
