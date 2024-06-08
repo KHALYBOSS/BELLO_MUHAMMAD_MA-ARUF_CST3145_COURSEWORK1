@@ -22,7 +22,8 @@
         <div class="container">
             <div class="row mb-4">
                 <div class="col-md-6">
-                    <!-- the user enters a search term -->
+                    <!-- SEARCH FUNCTIONLITY -->
+                    <!-- the user enters a search term and i used v-model to retrieve the value and used it in my vue JS  -->
                     <input type="text" v-model="searchQuery" class="form-control" placeholder="Search for lessons">
                 </div>
                 <!-- Sort Functionality -->
@@ -55,6 +56,7 @@
                             <p class="card-text">Price: ${{ lesson.price }}</p>
                             <p class="card-text">Spaces: {{ lesson.spaces }}</p>
                             <i :class="lesson.icon"></i>
+                            <!-- ADD TO CART FUNCTIONALITY -->
                             <!-- this button adds a product to the  
                             cart array and is disabled when the number of spaces is equal to zero -->
                             <button :disabled="lesson.spaces === 0" @click="addToCart(lesson)"
@@ -77,6 +79,7 @@
                 <!-- I used v-for to list the items in the cart array -->
                 <li class="list-group-item" v-for="item in cart" :key="item.id">
                     {{ item.subject }} - ${{ item.price }}
+                    <!-- REMOVE FROM CART -->
                     <!-- this button removes an item from the shopping cart when it is clicked  -->
                     <button @click="removeFromCart(item)" class="btn btn-danger btn-sm float-right">Remove</button>
                     <br>
